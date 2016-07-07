@@ -2,12 +2,15 @@ var gulp = require('gulp');
 var sass = require('gulp-sass');
 var browsersync = require('browser-sync').create();
 var useref= require('gulp-useref');
+var uglify = require('gulp-uglify');
+var gulpif = require('gulp-if');
 
 
 gulp.task('useref', function(){
     return gulp.src('app/*.html')
-    .pipe(useref())
-    .pipe(gulp.dest('dist'))    
+        .pipe(useref())
+        .pipe(gulpif('*.js', uglify()))
+        .pipe(gulp.dest('dist'))
 });
 
 gulp.task('sass', function(){
